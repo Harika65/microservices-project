@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: emailservice
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -12,7 +13,7 @@ spec:
       labels:
         app: emailservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       terminationGracePeriodSeconds: 5
       securityContext:
         fsGroup: 1000
@@ -56,6 +57,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: emailservice
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
@@ -69,6 +71,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: checkoutservice
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -78,7 +81,7 @@ spec:
       labels:
         app: checkoutservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       containers:
         - name: server
           image: harikan65/checkoutservice:latest
@@ -117,6 +120,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: checkoutservice
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
@@ -130,6 +134,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: recommendationservice
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -139,7 +144,7 @@ spec:
       labels:
         app: recommendationservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
@@ -173,6 +178,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: recommendationservice
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
@@ -186,6 +192,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -197,7 +204,7 @@ spec:
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       containers:
         - name: server
           image: harikan65/frontend:latest
@@ -258,6 +265,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend
+  namespace: webapps
 spec:
   type: NodePort
   selector:
@@ -271,6 +279,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend-external
+  namespace: webapps
 spec:
   type: LoadBalancer
   selector:
@@ -284,6 +293,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paymentservice
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -293,7 +303,7 @@ spec:
       labels:
         app: paymentservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
@@ -323,6 +333,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: paymentservice
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
@@ -336,6 +347,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: productcatalogservice
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -345,7 +357,7 @@ spec:
       labels:
         app: productcatalogservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
@@ -375,6 +387,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: productcatalogservice
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
@@ -388,6 +401,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cartservice
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -397,7 +411,7 @@ spec:
       labels:
         app: cartservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
@@ -428,6 +442,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cartservice
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
@@ -441,6 +456,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: loadgenerator
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -483,6 +499,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: currencyservice
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -492,7 +509,7 @@ spec:
       labels:
         app: currencyservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
@@ -523,6 +540,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: currencyservice
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
@@ -536,6 +554,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: shippingservice
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -545,7 +564,7 @@ spec:
       labels:
         app: shippingservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       containers:
       - name: server
         image: harikan65/shippingservice:latest
@@ -575,6 +594,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: shippingservice
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
@@ -586,6 +606,7 @@ spec:
 ---
 apiVersion: apps/v1
 kind: Deployment
+namespace: webapps
 metadata:
   name: redis-cart
 spec:
@@ -628,6 +649,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis-cart
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
@@ -641,6 +663,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: adservice
+  namespace: webapps
 spec:
   selector:
     matchLabels:
@@ -650,7 +673,7 @@ spec:
       labels:
         app: adservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: jenkins
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
@@ -682,6 +705,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: adservice
+  namespace: webapps
 spec:
   type: ClusterIP
   selector:
